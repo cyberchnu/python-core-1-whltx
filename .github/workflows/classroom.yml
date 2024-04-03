@@ -1,0 +1,131 @@
+name: Autograding Tests
+'on':
+- push
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: test_addition.py
+      id: test_addition-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_addition.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: test_both.py
+      id: test_both-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_both.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: test_calculate_fuel.py
+      id: test_calculate_fuel-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_calculate_fuel.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: test_fizz_buzz.py
+      id: test_fizz_buzz-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_fizz_buzz.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: test_int_within_bounds.py
+      id: test_int_within_bounds-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_int_within_bounds.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: test_hello.py
+      id: test_hello-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_hello.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: test_makes10.py
+      id: test_makes10-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_makes10.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: test_mean.py
+      id: test_mean-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_mean.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: test_squares_sum.py
+      id: test_squares_sum-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_squares_sum.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: test_sum_even_nums_in_range.py
+      id: test_sum_even_nums_in_range-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_sum_even_nums_in_range.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: test_tri_area.py
+      id: test_tri_area-py
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: test_tri_area.py
+        setup-command: sudo -H pip3 install pytest
+        command: pytest
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: education/autograding-grading-reporter@v1
+      env:
+        TEST_ADDITION-PY_RESULTS: "${{steps.test_addition-py.outputs.result}}"
+        TEST_BOTH-PY_RESULTS: "${{steps.test_both-py.outputs.result}}"
+        TEST_CALCULATE_FUEL-PY_RESULTS: "${{steps.test_calculate_fuel-py.outputs.result}}"
+        TEST_FIZZ_BUZZ-PY_RESULTS: "${{steps.test_fizz_buzz-py.outputs.result}}"
+        TEST_INT_WITHIN_BOUNDS-PY_RESULTS: "${{steps.test_int_within_bounds-py.outputs.result}}"
+        TEST_HELLO-PY_RESULTS: "${{steps.test_hello-py.outputs.result}}"
+        TEST_MAKES10-PY_RESULTS: "${{steps.test_makes10-py.outputs.result}}"
+        TEST_MEAN-PY_RESULTS: "${{steps.test_mean-py.outputs.result}}"
+        TEST_SQUARES_SUM-PY_RESULTS: "${{steps.test_squares_sum-py.outputs.result}}"
+        TEST_SUM_EVEN_NUMS_IN_RANGE-PY_RESULTS: "${{steps.test_sum_even_nums_in_range-py.outputs.result}}"
+        TEST_TRI_AREA-PY_RESULTS: "${{steps.test_tri_area-py.outputs.result}}"
+      with:
+        runners: test_addition-py,test_both-py,test_calculate_fuel-py,test_fizz_buzz-py,test_int_within_bounds-py,test_hello-py,test_makes10-py,test_mean-py,test_squares_sum-py,test_sum_even_nums_in_range-py,test_tri_area-py
